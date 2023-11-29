@@ -1,0 +1,30 @@
+spring:
+  #security:
+  #  oauth2:
+  #    resourceserver:
+  #      jwt:
+  #        jwt-set-uri: http://localhost:9999/realms/MyECommerce/protocol/openid-connect/certs
+  #        issuer-uri: http://localhost:9999/realms/MyECommerce
+  application:
+    name: estore
+  datasource:
+    username: 'postgres'
+    password: '1234'
+    url: jdbc:postgresql://localhost:5432/postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+
+server:
+  #ssl:
+  #key-store-password: password_certificate
+  #key-store-type: PKCS12
+  #key-store: /home/debian/ssl-cert/certificate.p12
+  compression:
+    enabled: 'true'
+  port: '8082'
+
+  #security:
+  #require-ssl: 'true'

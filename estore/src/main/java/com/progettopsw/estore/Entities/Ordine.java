@@ -1,0 +1,32 @@
+package com.progettopsw.estore.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.progettopsw.estore.Entities.Utente;
+import javax.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table(name="ordini")
+@Getter
+@Setter
+@EqualsAndHashCode
+public class Ordine {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Basic
+    private Date data;
+
+    @ManyToOne
+    @JoinColumn(name = "utente")
+    private Utente utente;
+
+    @OneToMany(mappedBy = "ordine", cascade = CascadeType.MERGE)
+    private List<ProdottoOrdinato> prodottiOrdinati;
+
+}
