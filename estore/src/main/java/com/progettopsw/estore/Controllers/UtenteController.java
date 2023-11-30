@@ -15,30 +15,28 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utenti")
-public class UtenteController {
+public class UtenteController 
+{
     @Autowired
     private UtenteService utenteService;
 
-
+    @SuppressWarnings(value = { "all" })
     @PostMapping("/registrazione")
     //@PreAuthorize("hasAnyAuthority('customer')")
-    public ResponseEntity create(@RequestBody @Valid Utente utente) {
-        try {
+    public ResponseEntity create(@RequestBody @Valid Utente utente) 
+    {
+        try 
+        {
             Utente added = utenteService.registerUser(utente);
             return new ResponseEntity(added, HttpStatus.OK);
-        } catch (MailAlreadyUsedException e) {
-            return new ResponseEntity<>(new MessaggioRisposta("ERROR_MAIL_USER_ALREADY_EXISTS"), HttpStatus.BAD_REQUEST);
         }
+        catch (MailAlreadyUsedException e) { return new ResponseEntity<>(new MessaggioRisposta("ERROR_MAIL_USER_ALREADY_EXISTS"), HttpStatus.BAD_REQUEST); }
     }
 
     @GetMapping("/getAll")
-    public List<Utente> getAll() {
-        return utenteService.getUtenti();
-    }
+    public List<Utente> getAll() { return utenteService.getUtenti(); }
 
     @GetMapping("/getUtente")
     //@PreAuthorize("hasAnyAuthority('customer')")
-    public Boolean getUtente(){
-        return utenteService.getUtente(/*JwtUtil.getEmail()*/ "a" );
-    } 
+    public Boolean getUtente(){ return utenteService.getUtente(/*JwtUtil.getEmail()*/ "a" ); } 
 }

@@ -1,10 +1,9 @@
 package com.progettopsw.estore.Entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.progettopsw.estore.Entities.Utente;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+//import org.hibernate.annotations.CreationTimestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -13,8 +12,8 @@ import java.util.List;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class Ordine {
-
+public class Ordine 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

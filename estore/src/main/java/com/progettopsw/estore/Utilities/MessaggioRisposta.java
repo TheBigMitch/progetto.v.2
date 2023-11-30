@@ -1,16 +1,11 @@
 
 package com.progettopsw.estore.Utilities;
 
-public class MessaggioRisposta {
+public class MessaggioRisposta 
+{
     private String message;
 
+    public MessaggioRisposta(String message) { this.message=message; }
 
-    public MessaggioRisposta(String message) {
-        this.message=message;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
+    public String getMessage() { return message; }
 }

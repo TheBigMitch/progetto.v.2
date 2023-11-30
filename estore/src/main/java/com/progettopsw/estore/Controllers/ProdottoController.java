@@ -25,6 +25,7 @@ public class ProdottoController {
     @Autowired
     private ProdottoCarrelloService carrelloService;
 
+    @SuppressWarnings(value = { "unused" })
     @PostMapping("/aggiungi")
     //@PreAuthorize("hasAnyAuthority('seller')")
     public boolean aggiungi(@RequestBody @Valid Prodotto prodotto){
@@ -36,13 +37,14 @@ public class ProdottoController {
         }
     }
 
+    @SuppressWarnings(value = { "all" })
     @GetMapping()
     public ResponseEntity mostraTutti(){
         List<Prodotto> listaProdotti=prodottoService.mostraProdotti();
         return new ResponseEntity(listaProdotti, HttpStatus.OK);
     }
 
-    /*
+    @SuppressWarnings(value = { "unused" })
     @PostMapping("/aggiungiAlCarrello")
     //@CrossOrigin(origins = "http://localhost:4200/**")
     //@PreAuthorize("hasAuthority('customer')")
@@ -54,15 +56,15 @@ public class ProdottoController {
             return false;
         }
         return true;
-    } */
+    } 
 
-    /*
+    
     @GetMapping("/prodottiCarrello")
     //@CrossOrigin(origins = "http://localhost:4200/**")
     //@PreAuthorize("hasAuthority('customer')")
     public List<ProdottoCarrello> prodottiCarrello(){
-        return carrelloService.prodottiCarrello(JwtUtil.getEmail());
-    } */
+        return carrelloService.prodottiCarrello("JwtUtil.getEmail()"); //ricorda di togliere le virgolette
+    } 
 
     @PostMapping("/rimuoviProdottoCarrello")
     //@CrossOrigin(origins = "http://localhost:4200/**")
@@ -71,15 +73,16 @@ public class ProdottoController {
         carrelloService.rimuoviCarrello(id);
     }
 
-    /*
+    
     @GetMapping("/rimuoviProdottiCarrello")
     //@CrossOrigin(origins = "http://localhost:4200/**")
     //@PreAuthorize("hasAuthority('customer')")
     public void rimuoviProdottiCarrello(){
         System.out.println("ciao");
         carrelloService.rimuoviCarrello();
-    } */
+    } 
 
+    @SuppressWarnings(value = { "rawtypes" })
     @GetMapping("/pagine")
     public ResponseEntity mostraTutti(@RequestParam(value = "numeroPagine", defaultValue = "0")int numeroPagine, @RequestParam(value = "dimensionePagina", defaultValue = "10") int dimensionePagina, @RequestParam(value = "sortBy", defaultValue = "id") String sortBy ){
         List<Prodotto> prodotti = prodottoService.mostraProdotti(numeroPagine, dimensionePagina, sortBy);
@@ -89,6 +92,7 @@ public class ProdottoController {
         return new ResponseEntity<>(prodotti, HttpStatus.OK);
     }
 
+    @SuppressWarnings(value = { "rawtypes" })
     @GetMapping("/ricerca/per_nome")
     public ResponseEntity ricercaPerNome(@RequestParam(required = false) String nome){
         List<Prodotto> prodotti=prodottoService.mostraProdottiPerNome(nome);

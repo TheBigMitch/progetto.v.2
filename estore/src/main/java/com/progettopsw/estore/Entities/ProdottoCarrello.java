@@ -7,7 +7,8 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name="ProdottiCarrello")
-public class ProdottoCarrello {
+public class ProdottoCarrello 
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -30,5 +31,4 @@ public class ProdottoCarrello {
 
     @OneToOne
     private Utente utente;
-
 }

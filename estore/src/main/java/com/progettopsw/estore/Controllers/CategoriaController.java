@@ -16,41 +16,40 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categorie")
-public class CategoriaController {
+public class CategoriaController 
+{
     @Autowired
     private CategoriaService categoriaService;
 
     @GetMapping()
-    public List<Categoria> getCategorie(){
-        return categoriaService.listaCategorie();
-    }
+    public List<Categoria> getCategorie(){ return categoriaService.listaCategorie(); }
 
+    @SuppressWarnings(value = { "unused" })
     @PostMapping("/aggiungi")
     //@PreAuthorize("hasAnyAuthority('seller')")
-    public Boolean aggiungiCategoria(@Valid @RequestBody Categoria categoria){
-        try{
+    public Boolean aggiungiCategoria(@Valid @RequestBody Categoria categoria)
+    {
+        try
+        {
             Categoria nuovaCategoria=categoriaService.creaCategoria(categoria);
             return true;
-        }catch(CategoriaEsistenteException e){
-            return false;
         }
+        catch(CategoriaEsistenteException e){ return false; }
     }
 
+    @SuppressWarnings(value = { "all" })
     @PostMapping("/aggiorna/{IDcategoria}")
     //@PreAuthorize("hasAnyAuthority('seller')")
-    public ResponseEntity aggiornaCategoria(@PathVariable("IDcategoria") Long IDcategoria, @Valid @RequestBody Categoria categoria){
-        try{
+    public ResponseEntity aggiornaCategoria(@PathVariable("IDcategoria") Long IDcategoria, @Valid @RequestBody Categoria categoria)
+    {
+        try
+        {
             Categoria aggiornata=categoriaService.aggiornaCategoria(IDcategoria, categoria);
             return new ResponseEntity(aggiornata, HttpStatus.OK);
-        }catch(CategoriaNonEsistenteException e){
-            return new ResponseEntity<>(new MessaggioRisposta("CATEGORIA NON ESISTENTE"), HttpStatus.BAD_REQUEST);
         }
+        catch(CategoriaNonEsistenteException e){ return new ResponseEntity<>(new MessaggioRisposta("CATEGORIA NON ESISTENTE"), HttpStatus.BAD_REQUEST); }
     }
 
     @GetMapping("/getCategoria/{IDcategoria}")
-    public Categoria getCategoria(@PathVariable ("IDcategoria") Long IDcategoria){
-        return categoriaService.getCategoria(IDcategoria);
-    }
-
-
+    public Categoria getCategoria(@PathVariable ("IDcategoria") Long IDcategoria){ return categoriaService.getCategoria(IDcategoria); }
 }

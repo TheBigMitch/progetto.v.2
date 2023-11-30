@@ -14,7 +14,8 @@ import java.util.List;
 @ToString
 @Entity
 @Table(name = "utenti")
-public class Utente{
+public class Utente
+{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -43,5 +44,4 @@ public class Utente{
     @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Ordine> ordini;
-
 }

@@ -12,28 +12,26 @@ import java.util.List;
 
 @Service
 @Transactional
-public class CategoriaService {
+public class CategoriaService 
+{
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public List<Categoria> listaCategorie(){
-        return categoriaRepository.findAll();
-    }
+    public List<Categoria> listaCategorie(){ return categoriaRepository.findAll(); }
 
-    public Categoria creaCategoria(Categoria categoria)throws CategoriaEsistenteException {
+    public Categoria creaCategoria(Categoria categoria)throws CategoriaEsistenteException 
+    {
         categoriaRepository.save(categoria);
         return categoria;
     }
 
-    public Categoria leggiCategoria(String categoria){
-        return categoriaRepository.findByNome(categoria);
-    }
+    public Categoria leggiCategoria(String categoria){ return categoriaRepository.findByNome(categoria); }
 
-    public Categoria aggiornaCategoria(Long categoriaID, Categoria nuovaCategoria)throws CategoriaNonEsistenteException {
+    public Categoria aggiornaCategoria(Long categoriaID, Categoria nuovaCategoria)throws CategoriaNonEsistenteException 
+    {
         Categoria categoria= categoriaRepository.findById(categoriaID).get();
-        if(categoria==null){
-            throw new CategoriaNonEsistenteException();
-        }
+        if(categoria==null){ throw new CategoriaNonEsistenteException(); }
+
         categoria.setNome(nuovaCategoria.getNome());
         categoria.setDescrizione(nuovaCategoria.getDescrizione());
         categoria.setProdotti(nuovaCategoria.getProdotti());
@@ -43,10 +41,5 @@ public class CategoriaService {
         return categoria;
     }
 
-    public Categoria getCategoria(Long categoriaID){
-        return categoriaRepository.findById(categoriaID).get();
-    }
-
-
-
+    public Categoria getCategoria(Long categoriaID){ return categoriaRepository.findById(categoriaID).get(); }
 }

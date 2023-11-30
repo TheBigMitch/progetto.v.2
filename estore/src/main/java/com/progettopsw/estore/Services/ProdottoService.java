@@ -18,57 +18,48 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProdottoService {
+public class ProdottoService 
+{
     @Autowired
     private ProdottoRepository prodottoRepository;
 
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    public Optional<Prodotto> getProdotto(long id){
-        return prodottoRepository.findById(id);
-    }
+    public Optional<Prodotto> getProdotto(long id){ return prodottoRepository.findById(id); }
 
     @Transactional(readOnly = false)
-    public Prodotto aggiungiProdotto(Prodotto prodotto) throws ProdottoEsistenteException {
-        if(prodottoRepository.existsByCodice(prodotto.getCodice())){
-            throw new ProdottoEsistenteException();
-        }
+    public Prodotto aggiungiProdotto(Prodotto prodotto) throws ProdottoEsistenteException 
+    {
+        if(prodottoRepository.existsByCodice(prodotto.getCodice())){ throw new ProdottoEsistenteException(); }
+
         long idC= Long.parseLong(prodotto.getIdC());
         Categoria categoria= categoriaRepository.findById(idC).get();
         prodotto.setCategoria(categoria);
         prodottoRepository.save(prodotto);
         return prodotto;
     }
+    
     @Transactional(readOnly = true)
-    public List<Prodotto> mostraProdotti(){
-        return prodottoRepository.findAll();
-    }
+    public List<Prodotto> mostraProdotti(){ return prodottoRepository.findAll(); }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> mostraProdotti(int numeroPagine, int dimensionePagine, String ordine){
+    public List<Prodotto> mostraProdotti(int numeroPagine, int dimensionePagine, String ordine)
+    {
         Pageable pagginazione = PageRequest.of(numeroPagine, dimensionePagine, Sort.by(ordine));
         Page<Prodotto> pagina = prodottoRepository.findAll(pagginazione);
-        if(pagina.hasContent()){
-            return pagina.getContent();
-        }
-        else{
-            return new ArrayList<>();
-        }
-    }
-    @Transactional(readOnly = true)
-    public List<Prodotto> mostraProdottiPerNome(String nome) {
-        return prodottoRepository.findByNomeContaining(nome);
+        if(pagina.hasContent()) 
+            return pagina.getContent(); 
+        else 
+            return new ArrayList<>(); 
     }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> mostraProdottiPerCodice(String codice) {
-        return prodottoRepository.findByCodice(codice);
-    }
+    public List<Prodotto> mostraProdottiPerNome(String nome) { return prodottoRepository.findByNomeContaining(nome); }
 
     @Transactional(readOnly = true)
-    public List<Prodotto> getProdottiCategoria(Long IdCategoria){
-        return prodottoRepository.findByCategoria_Id(IdCategoria);
-    }
+    public List<Prodotto> mostraProdottiPerCodice(String codice) { return prodottoRepository.findByCodice(codice); }
 
+    @Transactional(readOnly = true)
+    public List<Prodotto> getProdottiCategoria(Long IdCategoria){ return prodottoRepository.findByCategoria_Id(IdCategoria); }
 }
